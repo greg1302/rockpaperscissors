@@ -1,20 +1,42 @@
 const choices = ["rock", "paper", "scissors"];
+let playerChoice = "";
+let userScore = 0;
+let computerScore = 0;
 
-const container = document.querySelector('#container');
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+
+rock.addEventListener('click', () => {
+  playerChoice = "rock";
+  play();   
+});
+
+paper.addEventListener('click', () => {
+  playerChoice = "paper";
+  play(); 
+});
+
+scissors.addEventListener('click', () => {
+  playerChoice = "scissors";
+  play();
+});
+
+const results = document.querySelector('#results');
 const paragraph = document.createElement('p');
+const currentScore = document.createElement('p');
+const finalScore = document.createElement('p');
 
 play();
 
 function getComputerChoice() {
   const choice = Math.floor(Math.random() * choices.length);
-  //console.log(choice);
   return choices[choice];
 }
 
-function determineWinner(computerChoice, playerChoice) {
+function determineWinner(playerChoice) {
   computerChoice = getComputerChoice();
-  playerChoice = prompt("Rock, Paper or Scissors?").toLowerCase();
-
+  
   if (playerChoice === computerChoice) {
     console.log("Player has: " + playerChoice);
     console.log("Computer has: " + computerChoice);
@@ -54,39 +76,36 @@ function determineWinner(computerChoice, playerChoice) {
 }
 
 function play() {
-  let userScore = 0;
-  let computerScore = 0;
   
-  
-  //for (let i = 0; i < 5; i++) {
-    const result = determineWinner();
+const result = determineWinner(playerChoice);
 
-    if (result === "player") {
+  if (result === "player") {
       userScore++;
     } else if (result === "computer") {
       computerScore++;
     }
-    console.log("result: " + result);
-  //}
+  console.log("result: " + result);
+  
 
   console.log("Your score: " + userScore);
   console.log("Computer's score: " + computerScore);
   paragraph.textContent = "Your score: " + userScore +  
-  'Computers score: ' + computerScore;
+  ' Computers score: ' + computerScore;
 
   if (userScore > computerScore) {
-    console.log("You are the winner!");
-    paragraph.textContent += "You are the winner!";
+    console.log("You are the winner!");  
+    currentScore.textContent = "You won that round!";
   }
   else if (computerScore > userScore) {
-    console.log("The computer wins!");
-    paragraph.textContent += "The computer wins!";
+    console.log("The computer wins!");    
+    currentScore.textContent = "The computer won that round!";
   }
   else {
-    console.log("It's a tie!");
-    paragraph.textContent += "It's a tie!";
+    console.log("It's a tie!");    
+    currentScore.textContent = "Round tied!";
   }
-  container.appendChild(paragraph);
+  results.appendChild(paragraph);
+  results.appendChild(currentScore);
 }
 
 
