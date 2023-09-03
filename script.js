@@ -1,5 +1,10 @@
 const choices = ["rock", "paper", "scissors"];
 
+const container = document.querySelector('#container');
+const paragraph = document.createElement('p');
+
+play();
+
 function getComputerChoice() {
   const choice = Math.floor(Math.random() * choices.length);
   //console.log(choice);
@@ -51,8 +56,9 @@ function determineWinner(computerChoice, playerChoice) {
 function play() {
   let userScore = 0;
   let computerScore = 0;
-
-  for (let i = 0; i < 5; i++) {
+  
+  
+  //for (let i = 0; i < 5; i++) {
     const result = determineWinner();
 
     if (result === "player") {
@@ -61,10 +67,26 @@ function play() {
       computerScore++;
     }
     console.log("result: " + result);
-  }
+  //}
 
   console.log("Your score: " + userScore);
   console.log("Computer's score: " + computerScore);
+  paragraph.textContent = "Your score: " + userScore +  
+  'Computers score: ' + computerScore;
+
+  if (userScore > computerScore) {
+    console.log("You are the winner!");
+    paragraph.textContent += "You are the winner!";
+  }
+  else if (computerScore > userScore) {
+    console.log("The computer wins!");
+    paragraph.textContent += "The computer wins!";
+  }
+  else {
+    console.log("It's a tie!");
+    paragraph.textContent += "It's a tie!";
+  }
+  container.appendChild(paragraph);
 }
 
-play();
+
